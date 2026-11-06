@@ -1,5 +1,5 @@
-{% set version = "2.1.1" %}
-{% set js_version = version.replace('a', '-alpha').replace('b', '-beta') %}
+{% set version = "3.0.0" %}
+{% set js_version = version.replace('rc', '-rc').replace('a', '-alpha').replace('b', '-beta') %}
 
 package:
   name: ipyelk
@@ -7,22 +7,23 @@ package:
 
 source:
   url: https://pypi.org/packages/source/i/ipyelk/ipyelk-{{ version }}.tar.gz
-  sha256: 57d59a911663abe392aa4bf302445c66aa800a0751da30df3a0c08478532a808
+  sha256: b14446bcb39492bc58beb8418471fe844978297b08fb58757df31aad05830ea5
 
 build:
-  number: 1
+  number: 0
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation --disable-pip-version-check
 
 requirements:
   host:
-    - flit-core >=3.9.0,<4
+    - flit-core >=3.12,<4
     - pip
     - python {{ python_min }}
   run:
     - ipywidgets >=8.0.1,<9
+    - jsonschema >=4.18
     - networkx
-    - pydantic >=1.10.17,<3
+    - pydantic >=2.12,<3
     - python >={{ python_min }}
   run_constrained:
     - jupyterlab >=4.1,<5
@@ -53,11 +54,12 @@ test:
 about:
   home: https://github.com/jupyrdf/ipyelk
   summary: ELK widget for Jupyter
-  license: BSD-3-Clause
+  license: BSD-3-Clause AND EPL-1.0 AND EPL-2.0
   license_file:
     - LICENSE.txt
     - COPYRIGHT.md
     - third-party/epl-v10.html
+    - third-party/epl-v20.html
     - src/_d/share/jupyter/labextensions/@jupyrdf/jupyter-elk/static/third-party-licenses.json
 
 extra:
